@@ -1,0 +1,44 @@
+<template>
+  <v-card elevation="1">
+    <v-img
+      :src="img"
+      gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
+      >
+        <v-row
+          class="fill-height ma-0"
+          align="center"
+          justify="center"
+        >
+          <v-icon :size="40" color="white">mdi-play-circle-outline</v-icon>
+        </v-row>
+    </v-img>
+    <v-card-title class="subheading mb-0">
+      {{ title }}
+    </v-card-title>
+    <v-card-text>
+      <p class="mb-0">
+        <v-icon small color="grey" class="mr-2">fa-calendar-alt</v-icon>
+        <span>{{ day }}</span>
+      </p>
+    </v-card-text>
+    <v-divider />
+    <v-card-text class="py-2">
+      <p class="mb-0">
+        <v-icon small color="grey" class="mr-2">fa-map-marker</v-icon>
+        <span>{{ location }}</span>
+      </p>
+    </v-card-text>
+  </v-card>
+</template>
+
+<script>
+export default {
+  name: "explore-card",
+  props: {
+    title: String,
+    day: String,
+    img: String,
+    location: String
+  }
+};
+</script>
