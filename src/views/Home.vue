@@ -1,26 +1,30 @@
 <template>
  <v-container fluid class="pa-0">
-    <v-container>
-      <v-layout>
-        <v-btn text large class="text-none flex">
-          <v-icon small color="grey" class="mr-2">mdi-map</v-icon>
+    <v-row>
+      <video autoplay loop>
+        <source :src="require('@/assets/Ihaveastream-small.mp4')">
+      </video>
+    </v-row>
+    <v-layout row style="background-color: rgba(0,0,0,0.7)">
+        <v-btn text large class="text-none flex" color="white">
+          <v-icon small color="primary" class="mr-2">mdi-map</v-icon>
           <span>Near Me</span>
         </v-btn>
 
-        <v-btn text large class="text-none flex">
-          <v-icon small color="grey" class="mr-2">mdi-web</v-icon>
+        <v-btn text large class="text-none flex" color="white">
+          <v-icon small color="primary" class="mr-2">mdi-web</v-icon>
           <span>English</span>
         </v-btn>
 
-        <v-btn text large class="text-none flex">
-          <v-icon small color="grey" class="mr-2">mdi-calendar</v-icon>
+        <v-btn text large class="text-none flex" color="white">
+          <v-icon small color="primary" class="mr-2">mdi-calendar</v-icon>
           <span>Today</span>
         </v-btn>
 
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-btn text large class="text-none flex" v-on="on">
-              <v-icon small color="grey" class="mr-2">mdi-filter</v-icon>
+            <v-btn text large class="text-none flex" color="white" v-on="on">
+              <v-icon small color="primary" class="mr-2">mdi-filter</v-icon>
               <span>More Filters</span>
             </v-btn>
           </template>
@@ -45,33 +49,22 @@
             </v-card-text>
           </v-card>
         </v-menu>
+    </v-layout>
+    <v-container>
+      <v-row class="text-center white--text">
+        <v-col>
+          <h1 class="my-4">Stay connected despite Corona Kack</h1>
+          <p class="font-weight-bold">Bla bla Bla bla Bla bla Bla blaBla blaBla bla</p>
+          <v-btn text class="text-none primary" @click="$router.push('create-stream')">
+            I HAVE A STREAM
+          </v-btn>
+        </v-col>
+      </v-row>
 
-      </v-layout>
-
-      <h1 class="font-weight-light my-4">Try something new</h1>
-      <v-layout>
-        <v-row>
-          <v-col cols="6">
-            <v-img
-              src="https://source.unsplash.com/600x400/?streaming"
-              gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
-            >
-              <v-row
-                class="fill-height ma-0"
-                align="center"
-                justify="center"
-              >
-                <v-icon :size="60" color="white">mdi-play-circle-outline</v-icon>
-              </v-row>
-            </v-img>
-          </v-col>
-        </v-row>
-      </v-layout>
-
-      <h2 class="font-weight-light mt-5 mb-2">
+      <h2 class="font-weight-light mt-5 mb-2 white--text">
         <span>Let's work out!</span>
         <v-btn text icon class="right">
-          <v-icon size="18">mdi-chevron-right</v-icon>
+          <v-icon size="18" color="white">mdi-chevron-right</v-icon>
         </v-btn>
       </h2>
       <v-layout row>
@@ -101,11 +94,11 @@
         </v-flex>
       </v-layout>
 
-      <h2 class="font-weight-light mt-5 mb-2">
+      <h2 class="font-weight-light mt-5 mb-2 white--text">
         <span>Learn something new 🎓</span>
 
         <v-btn text icon class="right">
-          <v-icon size="18">mdi-chevron-right</v-icon>
+          <v-icon size="18" color="white">mdi-chevron-right</v-icon>
         </v-btn>
       </h2>
       <v-layout row>
@@ -152,3 +145,14 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1
+}
+</style>
