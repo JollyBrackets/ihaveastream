@@ -3,9 +3,7 @@
     <v-app-bar app color="black" dark>
       <v-layout row align-center>
         <v-flex xs3 pl-4>
-          <v-toolbar-title>
-            I Have A Stream
-          </v-toolbar-title>
+          <v-img contain :height="40" :width="40" :src="require('@/assets/logo.svg')" />
         </v-flex>
         <v-flex xs6>
           <v-text-field
