@@ -3,7 +3,7 @@
     <v-layout row v-if="user">
         <v-flex xs4 class="pa-2">
             <v-avatar size="200">
-                <v-img src="https://source.unsplash.com/200x200/?portrait,woman">
+                <v-img :src="user.picture.large">
                     <template v-slot:placeholder>
                         <v-row class="fill-height ma-0" align="center" justify="center">
                         <v-progress-circular indeterminate color="red lighten-3" />
@@ -11,7 +11,7 @@
                     </template>
                 </v-img>
             </v-avatar>
-            <p class="title">{{ user.name.first }} - {{ user.name.last }}</p>
+            <p class="title">{{ user.name.first }} {{ user.name.last }}</p>
         </v-flex>
         <v-flex xs4 class="pa-2">
             <pre>
