@@ -4,7 +4,7 @@
       <v-layout>
         <v-btn text large class="text-none flex">
           <v-icon small color="grey" class="mr-2">mdi-map</v-icon>
-          <span>Zürich</span>
+          <span>Near Me</span>
         </v-btn>
 
         <v-btn text large class="text-none flex">
@@ -13,14 +13,39 @@
         </v-btn>
 
         <v-btn text large class="text-none flex">
-          <v-icon small color="grey" class="mr-2">mdi-currency-usd</v-icon>
-          <span>> 200</span>
-        </v-btn>
-
-        <v-btn text large class="text-none flex">
           <v-icon small color="grey" class="mr-2">mdi-calendar</v-icon>
           <span>Today</span>
         </v-btn>
+
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn text large class="text-none flex" v-on="on">
+              <v-icon small color="grey" class="mr-2">mdi-filter</v-icon>
+              <span>More Filters</span>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-text>
+              <v-checkbox
+                class="mt-0"
+                v-model="filters.free"
+                label="Only free streams"
+                hide-details
+              />
+              <v-checkbox
+                v-model="filters.interactive"
+                label="Interactive streams"
+                hide-details
+              />
+              <v-checkbox
+                v-model="filters.regular"
+                label="Weekly / Monthly"
+                hide-details
+              />
+            </v-card-text>
+          </v-card>
+        </v-menu>
+
       </v-layout>
 
       <h1 class="font-weight-light my-4">Try something new</h1>
@@ -118,5 +143,12 @@ import ExploreCard from '@/components/ExploreCard.vue'
 export default {
   components: { ExploreCard },
   name: 'Home',
+  data: () => ({
+    filters: {
+      free: false,
+      interactive: false,
+      regular: false
+    }
+  })
 }
 </script>
