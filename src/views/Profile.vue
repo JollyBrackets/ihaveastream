@@ -15,10 +15,6 @@
             <p class=".body-1">{{ user.name.title }} {{ user.gender }}</p>
         </v-flex>
 
-        <div id="vue-root">
-            <datatable :columns="columns" :data="rows"></datatable>
-        </div>
-
         <v-flex xs4 class="pa-2">
             <pre>
                 <p class="title">Subscription details</p>
@@ -91,36 +87,5 @@ export default {
     this.user = response.data.results[0]
   }
 }
-
-import Vue from 'vue';
-
-new Vue({
-    el: '#vue-root',
-    data: {
-        columns: [
-            {label: 'id', field: 'id'},
-            {label: 'Username', field: 'user.username', headerClass: 'class-in-header second-class'},
-            {label: 'First Name', field: 'user.firstName'},
-            {label: 'Last Name', field: 'user.lastName'},
-            {label: 'Email', field: 'user.email'},
-            {label: 'Address', representedAs: ({address, city, state}) => `${address}<br />${city}, ${state}`, interpolate: true}
-        ],
-        rows: [
-
-            {
-                id: 1,
-                user: {
-                    username: "dprice0",
-                    firstName: "Daniel",
-                    lastName: "Price",
-                    email: "dprice0@blogs.com"
-                },
-                address: "3 Toban Park",
-                city: "Pocatello",
-                state: "Idaho"
-            }
-        ]
-    }
-});
 
 </script>
