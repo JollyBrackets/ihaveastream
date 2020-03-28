@@ -37,7 +37,6 @@ export default {
   async created () {
     const response = await axios.get('https://randomuser.me/api/')
     this.user = response.data.results[0]
-    console.log('user', this.user)
   }
 }
 </script>
