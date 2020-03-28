@@ -12,6 +12,7 @@
                 </v-img>
             </v-avatar>
             <p class="title">{{ user.name.first }} {{ user.name.last }}</p>
+            <p class="overline">{{ user.gender }} {{ user.location.city }}</p>
         </v-flex>
         <v-flex xs4 class="pa-2">
             <pre>
