@@ -12,10 +12,33 @@
                 </v-img>
             </v-avatar>
             <p class="title">{{ user.name.first }} {{ user.name.last }}</p>
-            <p class="overline">{{ user.gender }} {{ user.location.city }}</p>
+            <p class=".body-1">{{ user.name.title }} {{ user.gender }}</p>
         </v-flex>
         <v-flex xs4 class="pa-2">
             <pre>
+                <p class="title">Subscription details</p>
+                <b-card title="Dancing">
+                    <b-card-text>
+                    <b>Nr. 1 Dance school</b>
+                    </b-card-text>
+                    <b-card-text>
+                    <b>Hip-Hop</b>
+                    </b-card-text>
+                    <a href="#" class="card-link">Card link</a>
+                    <br>
+                    <b-card-text>
+                    <b>Fitness all day</b>
+                    </b-card-text>
+                    <b-card-text>
+                    <b>Zumba</b>
+                    </b-card-text>
+                    <a href="#" class="card-link">Card link</a>
+                    <br>
+                </b-card>
+                
+                <p class=".subtitle-1">Drinks and chats</p>
+                <p class=".body-1">{Streamer Name 1}<br>{Course Name 1}</p>
+                <p class=".body-1">{Streamer Name 2}<br>{Course Name 2}</p>
                 {{ user }}
             </pre>
         </v-flex>
