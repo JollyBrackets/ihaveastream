@@ -125,8 +125,8 @@ export default {
     }
   },
   async created() {
-    const response = await this.$http.get("https://ihaveastream-staging.herokuapp.com/api/v1/streams/" + this.id)
-    this.stream = response.data[0]
+    const response = await this.$http.get("api/v1/streams/" + this.id)
+    this.stream = response.data
   }
 };
 </script>
