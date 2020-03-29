@@ -2,9 +2,6 @@
  <v-container fluid class="pa-0">
     <filter-bar></filter-bar>
     <v-container>
-      <pre>
-      {{ results }}
-      </pre>
       <v-row>
         <v-col cols="12">
             <p class="caption" v-if="searchTerm">
