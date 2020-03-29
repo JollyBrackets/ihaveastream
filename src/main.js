@@ -3,12 +3,24 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
 import VueAnalytics from 'vue-analytics'
+import GAuth from 'vue-google-oauth2'
+import VueResource from 'vue-resource';
 
 Vue.config.productionTip = false
 Vue.use(VueAnalytics, {
   id: 'UA-162053829-1',
   router
 })
+
+const gauthOption = {
+  clientId: "598223967097-q4amponcts0mpsocn313onh2k030fhka.apps.googleusercontent.com",
+  scope: 'profile email',
+  prompt: 'select_account',
+}
+Vue.use(GAuth, gauthOption)
+Vue.use(VueResource);
+
+Vue.http.options.root = process.env.VUE_APP_API_ROOT || 'https://ihaveastream-staging.herokuapp.com'
 
 new Vue({
   router,
