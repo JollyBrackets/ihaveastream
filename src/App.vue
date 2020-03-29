@@ -2,27 +2,29 @@
   <v-app style="background-color: transparent">
     <v-app-bar app color="black" dark>
       <v-layout row align-center>
-        <v-flex class="pl-5" xs3 @click="$router.push('/')" style="cursor: pointer">
+        <v-flex class="px-9" shrink @click="$router.push('/')" style="cursor: pointer">
           <v-img contain :height="40" :width="40" :src="require('@/assets/logo.svg')" />
         </v-flex>
-        <v-flex xs6>
+        <v-flex grow>
           <v-text-field
+            v-model="searchTerm"
             solo
             flat
             hide-details
             small
             single-line
-            placeholder="Find Streams"
+            placeholder="Find streams"
+            @keypress.enter="$router.push({ name: 'search', params: { searchTerm } })"
           >
             <v-icon small slot="append">mdi-magnify</v-icon>
           </v-text-field>
         </v-flex>
-        <v-flex xs3 text-right pr-4>
+        <v-flex shrink text-right class="px-9">
           <v-btn text class="text-none accent" @click="$router.push('create-stream')">
             I HAVE A STREAM
           </v-btn>
           
-          <v-btn fab small class="ml-3 mr-3" @click="$router.push('profile')">
+          <v-btn fab small class="ml-3" @click="$router.push('profile')">
             <v-icon>mdi-account-circle-outline</v-icon>
           </v-btn>
         </v-flex>
@@ -71,7 +73,7 @@
 export default {
   name: 'App',
   data: () => ({
-    //
+    searchTerm: null
   }),
 };
 </script>

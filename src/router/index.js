@@ -28,6 +28,12 @@ const routes = [
     name: 'Create Stream',
     component: () => import(/* webpackChunkName: "create-stream" */ '../views/CreateStream.vue')
   },
+  {
+    path: '/search/:searchTerm?',
+    name: 'search',
+    component: () => import(/* webpackChunkName: "search" */ '../views/Search.vue'),
+    props: true
+  },
 
 ]
 
