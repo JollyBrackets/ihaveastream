@@ -3,7 +3,7 @@
     <v-row v-if="user">
       <v-col cols="12" sm="3" class="pa-2 text-center">
         <v-avatar size="120" class="elevation-2 mt-12">
-          <v-img :src="user.picture.large">
+          <v-img :src="user.picture">
             <template v-slot:placeholder>
               <v-row class="fill-height ma-0" align="center" justify="center">
                 <v-progress-circular indeterminate color="red lighten-3" />
@@ -11,8 +11,8 @@
             </template>
           </v-img>
         </v-avatar>
-        <p class="title mt-5 mb-0">{{ user.name.first }} {{ user.name.last }}</p>
-        <p class=".body-1">{{ user.location.country }} - {{ user.location.city }}</p>
+        <p class="title mt-5 mb-0">{{ user.firstName }} {{ user.lastName }}</p>
+        <p class=".body-1">{{ user.country }} - {{ user.city }}</p>
       </v-col>
 
       <v-col cols="12" sm="9" class="pa-2">
@@ -20,7 +20,7 @@
         <v-list two-line v-for="subscription in subscriptions" :key="subscription.name">
           <v-list-item class="elevation-2">
             <v-list-item-avatar>
-              <v-img :src="user.picture.large"></v-img>
+              <v-img :src="user.picture"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "Profile",
   data: () => ({
@@ -65,8 +64,10 @@ export default {
     ]
   }),
   async created() {
-    const response = await axios.get("https://randomuser.me/api/");
-    this.user = response.data.results[0];
+    this.$http.get("api/v1/users/me").then(response => {
+      this.user = response.data
+    })
+
   }
 };
 </script>

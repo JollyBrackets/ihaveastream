@@ -102,9 +102,11 @@ export default {
   }),
   created() {
     const token = localStorage.getItem('token') || null
-    this.setToken(token)
-
-    if (token) this.loadUser()
+    
+    if (token) {
+      this.setToken(token)
+      this.loadUser()
+    }
   },
   methods: {
     search () {

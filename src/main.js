@@ -19,7 +19,8 @@ const gauthOption = {
 }
 Vue.use(GAuth, gauthOption)
 Vue.use(VueResource);
-Vue.http.options.root = 'http://localhost:8000/';
+
+Vue.http.options.root = process.env.VUE_APP_API_ROOT || 'https://ihaveastream-staging.herokuapp.com'
 
 new Vue({
   router,
