@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="1" @click="$router.push({ name: 'Stream', params: { id: 'bla'} })">
+  <v-card elevation="1" @click="$router.push({ name: 'Stream', params: { id: id || 'bla'} })">
     <v-img
       :src="img"
       :height="150"
@@ -22,11 +22,22 @@
       <p class="title mb-0">{{ title }}</p>
     </v-card-text>
     <v-divider />
-    <v-card-text class="py-2">
-      <p class="mb-0">
-        <v-icon small color="grey" class="mr-2">fa-map-marker</v-icon>
-        <span>{{ location }}</span>
-      </p>
+    <v-card-text class="">
+      <v-layout>
+        <v-flex shrink>
+          <v-avatar size="30" class="elevation-2">
+            <v-img :src="stream.owner.picture">
+              <template v-slot:placeholder>
+                <loader />
+              </template>
+            </v-img>
+          </v-avatar>
+        </v-flex>
+        <v-flex grow class="px-3">
+          <p class="mb-0">{{ stream.owner.name }} ({{ stream.owner.country }})</p>
+          <p class="caption">200 Subscribers</p>
+        </v-flex>
+      </v-layout>
     </v-card-text>
   </v-card>
 </template>
@@ -38,7 +49,9 @@ export default {
     title: String,
     day: String,
     img: String,
-    location: String
+    location: String,
+    id: String,
+    stream: Object
   }
 };
 </script>

@@ -2,30 +2,45 @@
  <v-container fluid class="pa-0">
     <filter-bar></filter-bar>
     <v-container>
-      <pre>
-      {{ results }}
-      </pre>
-      <v-row>
-        <v-col cols="12">
-            <p class="caption" v-if="searchTerm">
-              <span class="mr-4">Showing results for:</span>
-              <v-chip close small @click:close="resetSearch">{{ searchTerm }}</v-chip>
-            </p>
+      <p class="caption" v-if="searchTerm">
+        <span class="mr-4">Showing results for:</span>
+        <v-chip close small @click:close="resetSearch">{{ searchTerm }}</v-chip>
+      </p>
 
-            <v-skeleton-loader
-              v-for="i in 10"
-              :key="i"
-              type="list-item-avatar-three-line"
-              class="mx-auto"
-            ></v-skeleton-loader>
-        </v-col>
-      </v-row>
+      <template v-if="streams">
+        <v-row wrap>
+          <v-col cols="12" sm="6" md="4" lg="3" v-for="stream in streams" :key="stream.id">
+            <explore-card
+              :stream="stream"
+              :title="stream.name"
+              :id="stream.id"
+              :day="stream.sessions[stream.sessions.length -1].start | moment('from', 'now')"
+              img="https://source.unsplash.com/500x300/?yoga"
+              location="Zürich, Altstetten"
+            />
+          </v-col>
+        </v-row>
+        <pre>
+        {{ streams }}
+        </pre>
+      </template>
+
+      <template v-else>
+        <v-skeleton-loader
+          v-for="i in 10"
+          :key="i"
+          type="list-item-avatar-three-line"
+          class="mx-auto"
+        />
+      </template>
+
     </v-container>
   </v-container>
 </template>
 
 <script>
 import FilterBar from '@/components/FilterBar.vue'
+import ExploreCard from '@/components/ExploreCard.vue'
 export default {
   props: {
     searchTerm: {
@@ -33,10 +48,10 @@ export default {
       default: null
     }
   },
-  components: { FilterBar },
-  name: 'Home',
+  components: { FilterBar, ExploreCard },
+  name: 'Search',
   data: () => ({
-    results: []
+    streams: null
   }),
   created() {
     this.requestData()
@@ -61,7 +76,7 @@ export default {
     search({ name = "", price = { max: '' }, language = '', datetime = { from: '', to: '' } } = {}) {
       return this.$http.get(`api/v1/streams/?name=${name}&price_max=${price.max}&language=${language}&start_after=${datetime.from}&start_before=${datetime.to}`)
         .then(response => {
-          this.results = response.data  
+          this.streams = response.data  
         })
     },
     resetSearch () {
