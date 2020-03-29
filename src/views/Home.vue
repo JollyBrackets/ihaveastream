@@ -26,7 +26,7 @@
         </v-btn>
       </h2>
       <v-row>
-        <v-col cols="12" sm="4" class="pa-2">
+        <v-col cols="12" sm="6" md="4" class="pa-2">
           <explore-card
             title="Yoga with Adrien"
             day="Friday"
@@ -34,7 +34,7 @@
             location="Zürich, Altstetten"
           />
         </v-col>
-        <v-col cols="12" sm="4" class="pa-2">
+        <v-col cols="12" sm="6" md="4" class="pa-2">
           <explore-card
             title="Soccer with FCB"
             day="Friday"
@@ -42,7 +42,7 @@
             location="Zürich, Brunau"
           />
         </v-col>
-        <v-col cols="12" sm="4" class="pa-2">
+        <v-col cols="12" sm="6" md="4" class="pa-2">
           <explore-card
             title="Bootcamp @PumpItUp"
             day="Monday"
@@ -60,7 +60,7 @@
         </v-btn>
       </h2>
       <v-row>
-        <v-col cols="12" sm="4" class="pa-2">
+        <v-col cols="12" sm="6" md="4" class="pa-2">
           <explore-card
             title="Web Development"
             day="Thursdays"
@@ -68,7 +68,7 @@
             location="Zürich, Altstetten"
           />
         </v-col>
-        <v-col cols="12" sm="4" class="pa-2">
+        <v-col cols="12" sm="6" md="4" class="pa-2">
           <explore-card
             title="Accounting with Max"
             day="Friday"
@@ -76,7 +76,7 @@
             location="Zürich, Brunau"
           />
         </v-col>
-        <v-col cols="12" sm="4" class="pa-2">
+        <v-col cols="12" sm="6" md="4" class="pa-2">
           <explore-card
             title="Spanish for flirting"
             day="Monday"
