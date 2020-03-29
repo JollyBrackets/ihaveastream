@@ -135,7 +135,6 @@ export default {
       this.$gAuth
         .getAuthCode()
         .then(authCode => {
-          console.log(authCode)
           //on success
           var formData = new FormData();
           formData.append('code', authCode);
