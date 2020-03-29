@@ -1,7 +1,7 @@
 <template>
  <v-container fluid class="pa-0">
     <v-row>
-      <video autoplay loop>
+      <video autoplay muted loop>
         <source :src="require('@/assets/Ihaveastream-small.mp4')">
       </video>
     </v-row>
