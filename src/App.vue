@@ -34,9 +34,21 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           
-          <v-btn fab small class="ml-3" @click="$router.push('profile')">
-            <v-icon>mdi-account-circle-outline</v-icon>
-          </v-btn>
+          <template v-if="this.user">
+            <v-btn fab small class="ml-3" @click="$router.push('/profile')">
+              <v-avatar size="40">
+                <img
+                  :src="user.picture"
+                  :alt="user.firstName"
+                >
+              </v-avatar>
+            </v-btn>
+          </template>
+          <template v-else>
+            <v-btn fab small class="ml-3" @click="login">
+              <v-icon>mdi-account-circle-outline</v-icon>
+            </v-btn>
+          </template>
         </v-flex>
       </v-layout>
     </v-app-bar>
@@ -80,15 +92,58 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'App',
   data: () => ({
-    searchTerm: null
+    searchTerm: null,
+    user: null,
   }),
+  created() {
+    const token = localStorage.getItem('token') || null
+    this.setToken(token)
+
+    if (token) this.loadUser()
+  },
   methods: {
     search () {
       this.$router.push({ name: 'search', params: { searchTerm: this.searchTerm } })
       this.searchTerm = null
+    },
+
+
+    setToken(token) {
+      window.localStorage.setItem('token', token)
+      Vue.http.headers.common['Authorization'] = token
+    },
+
+    loadUser() {
+      this.$http.get("api/v1/users/me").then(response => {
+        this.user = response.data
+      })
+    },
+
+    login() {
+      this.$gAuth
+        .getAuthCode()
+        .then(authCode => {
+          console.log(authCode)
+          //on success
+          var formData = new FormData();
+          formData.append('code', authCode);
+          formData.append('provider', 'google-oauth2');
+          formData.append('redirect_uri', window.location.origin);
+
+          return this.$http.post("auth/login/social/knox/", formData);
+        })
+        .then((response) => {
+          this.setToken(`Token ${response.data.token}`)
+        })
+        .then(() => this.loadUser())
+        .catch((e) => {
+          throw e
+        })
     }
   }
 };

@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
 import VueAnalytics from 'vue-analytics'
+import GAuth from 'vue-google-oauth2'
+import VueResource from 'vue-resource';
 
 Vue.config.productionTip = false
 Vue.use(VueAnalytics, {
@@ -16,6 +18,8 @@ const gauthOption = {
   prompt: 'select_account',
 }
 Vue.use(GAuth, gauthOption)
+Vue.use(VueResource);
+Vue.http.options.root = 'http://localhost:8000/';
 
 new Vue({
   router,
