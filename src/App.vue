@@ -7,6 +7,7 @@
         </v-flex>
         <v-flex grow>
           <v-text-field
+            class="hidden-xs-only"
             v-model="searchTerm"
             solo
             flat
@@ -18,10 +19,19 @@
           >
             <v-icon small slot="append">mdi-magnify</v-icon>
           </v-text-field>
+
+          <v-btn fab small class="primary hidden-sm-and-up float-right">
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+
         </v-flex>
         <v-flex shrink text-right class="px-9">
-          <v-btn text class="text-none accent" @click="$router.push('create-stream')">
+          <v-btn text class="text-none accent hidden-sm-and-down" @click="$router.push('create-stream')">
             I HAVE A STREAM
+          </v-btn>
+
+          <v-btn fab small class="accent hidden-md-and-up" @click="$router.push('create-stream')">
+            <v-icon>mdi-plus</v-icon>
           </v-btn>
           
           <v-btn fab small class="ml-3" @click="$router.push('profile')">

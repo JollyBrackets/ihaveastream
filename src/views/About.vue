@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <h1>This is an about page</h1>
-    <v-row wrap>
-      <v-col cols="4" v-for="member in team" :key="member.name">
+    <v-row wrap class="justify-center">
+      <v-col cols="12" sm="6" md="4" v-for="member in team" :key="member.name">
           <v-hover>
             <template v-slot:default="{ hover }">
               <v-card>

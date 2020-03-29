@@ -25,32 +25,32 @@
           <v-icon size="18" color="white">mdi-chevron-right</v-icon>
         </v-btn>
       </h2>
-      <v-layout row>
-        <v-flex xs4 class="pa-2">
+      <v-row>
+        <v-col cols="12" sm="4" class="pa-2">
           <explore-card
             title="Yoga with Adrien"
             day="Friday"
             img="https://source.unsplash.com/500x300/?yoga"
             location="Zürich, Altstetten"
           />
-        </v-flex>
-        <v-flex xs4 class="pa-2">
+        </v-col>
+        <v-col cols="12" sm="4" class="pa-2">
           <explore-card
             title="Soccer with FCB"
             day="Friday"
             img="https://source.unsplash.com/500x300/?soccer"
             location="Zürich, Brunau"
           />
-        </v-flex>
-        <v-flex xs4 class="pa-2">
+        </v-col>
+        <v-col cols="12" sm="4" class="pa-2">
           <explore-card
             title="Bootcamp @PumpItUp"
             day="Monday"
             img="https://source.unsplash.com/500x300/?workout,bootcamp"
             location="Zürich, Örlikon"
           />
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
 
       <h2 class="font-weight-light mt-5 mb-2 white--text">
         <span>Learn something new 🎓</span>
@@ -59,32 +59,32 @@
           <v-icon size="18" color="white">mdi-chevron-right</v-icon>
         </v-btn>
       </h2>
-      <v-layout row>
-        <v-flex xs4 class="pa-2">
+      <v-row>
+        <v-col cols="12" sm="4" class="pa-2">
           <explore-card
             title="Web Development"
             day="Thursdays"
             img="https://source.unsplash.com/500x300/?coding,web"
             location="Zürich, Altstetten"
           />
-        </v-flex>
-        <v-flex xs4 class="pa-2">
+        </v-col>
+        <v-col cols="12" sm="4" class="pa-2">
           <explore-card
             title="Accounting with Max"
             day="Friday"
             img="https://source.unsplash.com/500x300/?accounting,money"
             location="Zürich, Brunau"
           />
-        </v-flex>
-        <v-flex xs4 class="pa-2">
+        </v-col>
+        <v-col cols="12" sm="4" class="pa-2">
           <explore-card
             title="Spanish for flirting"
             day="Monday"
             img="https://source.unsplash.com/500x300/?spanish,language,learning"
             location="Zürich, Örlikon"
           />
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-container>
   </v-container>
 </template>
