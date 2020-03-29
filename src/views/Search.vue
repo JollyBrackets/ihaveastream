@@ -37,7 +37,7 @@ export default {
   }),
   created() {
     this.requestData()
-    this.$http.get('https://ip-api.com/json/?fields=statuscountryCode,region,zip')
+    /*this.$http.get('https://ip-api.com/json/?fields=statuscountryCode,region,zip')
       .then(response => {
         window.__data__ = response.data
         //const zip = response.data.zip
@@ -45,7 +45,7 @@ export default {
 
 
         //console.log({ zip, country })
-      })
+      })*/
   },
   watch: {
     searchTerm() {
