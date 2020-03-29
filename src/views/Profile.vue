@@ -1,8 +1,8 @@
 <template>
  <v-container>
     <v-layout row v-if="user">
-        <v-flex xs4 class="pa-2">
-            <v-avatar size="200">
+        <v-flex xs3 class="pa-2 text-center">
+            <v-avatar size="150" class="elevation-2 mt-12">
                 <v-img :src="user.picture.large">
                     <template v-slot:placeholder>
                         <v-row class="fill-height ma-0" align="center" justify="center">
@@ -11,61 +11,45 @@
                     </template>
                 </v-img>
             </v-avatar>
-            <p class="title">{{ user.name.first }} {{ user.name.last }}</p>
-            <p class=".body-1">{{ user.name.title }} {{ user.gender }}</p>
+            <p class="title mt-5 mb-0">{{ user.name.first }} {{ user.name.last }}</p>
+            <p class=".body-1">{{ user.location.country }} - {{ user.location.city }}</p>
+            
         </v-flex>
 
-        <v-flex xs4 class="pa-2">
-            <pre>
-                <p class="title">Subscription details</p>
-                <v-card
-                max-width="500"
-                class="mx-auto"
-                outlined
-                >
-                <v-list-item>
-                    <v-list-item-avatar color="grey"></v-list-item-avatar>
-                    <v-list-item-content>
-                    <v-list-item-title class="headline">Hip-Hop 2</v-list-item-title>
-                    <v-list-item-subtitle>by Best Dance School Zürich</v-list-item-subtitle>
-                    </v-list-item-content>
+        <v-flex xs9 class="pa-2">
+            <p class="title">Subscription details</p>
+            <v-list
+                two-line
+                v-for="subscription in subscriptions"
+                :key="subscription.name">
+                <v-list-item class="elevation-2">
+                        <v-list-item-avatar>
+                            <v-img :src="user.picture.large"></v-img>
+                        </v-list-item-avatar>
+
+                        <v-list-item-content>
+                            <v-row>
+                                <v-col>
+                                    <v-list-item-title>
+                                        <span>{{ subscription.name }}</span>
+                                    </v-list-item-title>
+                                    <v-list-item-subtitle>
+                                        {{ subscription.streamer }}
+                                    </v-list-item-subtitle>
+                                </v-col>
+                                <v-col class="text-right">
+                                    <v-chip x-small color="primary" class="text-right mx-2">Music</v-chip>
+                                    <v-chip x-small color="primary" class="text-right mx-2">Music</v-chip>
+                                    <v-chip x-small color="primary" class="text-right mx-2">Music</v-chip>
+                                </v-col>
+                            </v-row>
+                        </v-list-item-content>
                 </v-list-item>
-            
-                <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
-                    height="194"
-                    width="500"
-                ></v-img>
-            
-                <v-card-actions>
-                    <v-btn
-                    text
-                    color="deep-purple accent-3"
-                    >
-                    Read
-                    </v-btn>
-                    <v-btn
-                    text
-                    color="deep-purple accent-4"
-                    >
-                    Bookmark
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                    <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
-                    </v-btn>
-                    <v-btn icon>
-                    <v-icon>mdi-share-variant</v-icon>
-                    </v-btn>
-                </v-card-actions>
-                </v-card>
-                
-                
-                <p class=".subtitle-1">Drinks and chats</p>
-                <p class=".body-1">{Streamer Name 1}<br>{Course Name 1}</p>
-                <p class=".body-1">{Streamer Name 2}<br>{Course Name 2}</p>
+            </v-list>
+        
+            <!-- <pre>
                 {{ user }}
-            </pre>
+            </pre> -->
         </v-flex>
     </v-layout>
 
@@ -80,7 +64,11 @@ import axios from 'axios'
 export default {
   name: 'Profile',
   data: () => ({
-      user: null
+      user: null,
+      subscriptions: [
+        { name: 'My Stream', streamer: 'Marco Polo' },
+        { name: 'Music Live', streamer: 'Bosse' },
+      ]
   }),
   async created () {
     const response = await axios.get('https://randomuser.me/api/')

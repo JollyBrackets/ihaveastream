@@ -2,7 +2,7 @@
   <v-app style="background-color: transparent">
     <v-app-bar app color="black" dark>
       <v-layout row align-center>
-        <v-flex xs3 pl-4 @click="$router.push('/')">
+        <v-flex class="pl-5" xs3 @click="$router.push('/')" style="cursor: pointer">
           <v-img contain :height="40" :width="40" :src="require('@/assets/logo.svg')" />
         </v-flex>
         <v-flex xs6>
@@ -22,7 +22,7 @@
             I HAVE A STREAM
           </v-btn>
           
-          <v-btn fab small class="ml-3" @click="$router.push('profile')">
+          <v-btn fab small class="ml-3 mr-3" @click="$router.push('profile')">
             <v-icon>mdi-account-circle-outline</v-icon>
           </v-btn>
         </v-flex>
@@ -42,9 +42,15 @@
           <a href="https://github.com/JollyBrackets/ihaveastream" target="blank" style="text-decoration: none;">
             <v-btn class="mx-4 white--text">
               <v-icon size="24px">mdi-github</v-icon>
-              <span>Github Repo</span>
+              <span class="ml-2">Github Repo</span>
             </v-btn>
           </a>
+
+          <v-btn class="mx-4 white--text" @click="$router.push('about')">
+            <v-icon size="24px">mdi-account-supervisor</v-icon>
+            <span class="ml-2">About the team</span>
+          </v-btn>
+            
         </v-card-text>
 
         <v-card-text class="white--text pt-0">
