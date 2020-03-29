@@ -22,72 +22,24 @@
         </v-col>
       </v-row>
 
-      <h2 class="font-weight-light mt-5 mb-2 white--text" id="discover">
-        <span>Let's work out!</span>
-        <v-btn text icon class="right">
-          <v-icon size="18" color="white">mdi-chevron-right</v-icon>
-        </v-btn>
-      </h2>
-      <v-row>
-        <v-col cols="12" sm="6" md="4" class="pa-2">
-          <explore-card
-            title="Yoga with Adrien"
-            day="Friday"
-            img="https://source.unsplash.com/500x300/?yoga"
-            location="Zürich, Altstetten"
-          />
-        </v-col>
-        <v-col cols="12" sm="6" md="4" class="pa-2">
-          <explore-card
-            title="Soccer with FCB"
-            day="Friday"
-            img="https://source.unsplash.com/500x300/?soccer"
-            location="Zürich, Brunau"
-          />
-        </v-col>
-        <v-col cols="12" sm="6" md="4" class="pa-2">
-          <explore-card
-            title="Bootcamp @PumpItUp"
-            day="Monday"
-            img="https://source.unsplash.com/500x300/?workout,bootcamp"
-            location="Zürich, Örlikon"
-          />
-        </v-col>
-      </v-row>
-
-      <h2 class="font-weight-light mt-5 mb-2 white--text">
-        <span>Learn something new 🎓</span>
-
-        <v-btn text icon class="right">
-          <v-icon size="18" color="white">mdi-chevron-right</v-icon>
-        </v-btn>
-      </h2>
-      <v-row>
-        <v-col cols="12" sm="6" md="4" class="pa-2">
-          <explore-card
-            title="Web Development"
-            day="Thursdays"
-            img="https://source.unsplash.com/500x300/?coding,web"
-            location="Zürich, Altstetten"
-          />
-        </v-col>
-        <v-col cols="12" sm="6" md="4" class="pa-2">
-          <explore-card
-            title="Accounting with Max"
-            day="Friday"
-            img="https://source.unsplash.com/500x300/?accounting,money"
-            location="Zürich, Brunau"
-          />
-        </v-col>
-        <v-col cols="12" sm="6" md="4" class="pa-2">
-          <explore-card
-            title="Spanish for flirting"
-            day="Monday"
-            img="https://source.unsplash.com/500x300/?spanish,language,learning"
-            location="Zürich, Örlikon"
-          />
-        </v-col>
-      </v-row>
+      <template v-if="streams">
+        <v-container fluid v-for="category in Object.keys(categories)" :key="category">
+          <h2 class="font-weight-light mt-5 mb-2 white--text" id="discover">
+            <span>{{ category }}</span>
+            <v-btn text icon class="right">
+              <v-icon size="18" color="white">mdi-chevron-right</v-icon>
+            </v-btn>
+          </h2>
+          <v-row>
+            <v-col cols="12" sm="6" md="4" class="pa-2" v-for="stream in categories[category]" :key="stream.id">
+              <explore-card
+                :stream="stream"
+              />
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
+      
     </v-container>
   </v-container>
 </template>
@@ -98,7 +50,23 @@ import FilterBar from '@/components/FilterBar.vue'
 export default {
   components: { ExploreCard, FilterBar },
   name: 'Home',
+  async created () {
+    const response = await this.$http.get(`api/v1/streams`)
+    this.streams = response.data  
+  },
+  computed: {
+    categories () {
+      return this.streams.reduce((categories, stream) => {
+        categories[stream.category] = [
+          ...(categories[stream.category] || []),
+          stream
+        ]
+        return categories
+      }, {})
+    }
+  },
   data: () => ({
+    streams: null,
     heroTitle: [
       'Connected despite Corona',
       'Time to connect',

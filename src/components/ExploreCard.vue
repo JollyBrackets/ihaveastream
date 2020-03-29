@@ -1,7 +1,7 @@
 <template>
-  <v-card elevation="1" @click="$router.push({ name: 'Stream', params: { id: id || 'bla'} })">
+  <v-card v-if="stream" elevation="1" @click="$router.push({ name: 'Stream', params: { id: stream.id } })">
     <v-img
-      :src="img"
+      :src="'https://source.unsplash.com/500x300/?'+ stream.category"
       :height="150"
       gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
       >
@@ -18,15 +18,15 @@
         </v-row>
     </v-img>
     <v-card-text>
-      <p class="mb-0 primary--text">{{ day }}</p>
-      <p class="title mb-0">{{ title }}</p>
+      <p class="mb-0 primary--text">{{ stream.sessions[stream.sessions.length -1].start | moment('from', 'now') }}</p>
+      <p class="title text-truncate mb-0">{{ stream.name }}</p>
     </v-card-text>
     <v-divider />
-    <v-card-text class="">
+    <v-card-text class="py-2">
       <v-layout>
         <v-flex shrink>
-          <v-avatar size="30" class="elevation-2">
-            <v-img :src="stream.owner.picture">
+          <v-avatar size="40" class="elevation-2">
+            <v-img :src="owner.picture">
               <template v-slot:placeholder>
                 <loader />
               </template>
@@ -34,8 +34,8 @@
           </v-avatar>
         </v-flex>
         <v-flex grow class="px-3">
-          <p class="mb-0">{{ stream.owner.name }} ({{ stream.owner.country }})</p>
-          <p class="caption">200 Subscribers</p>
+          <p class="mb-0">{{ owner.name }} ({{ owner.country }})</p>
+          <p class="caption mb-0">200 Subscribers</p>
         </v-flex>
       </v-layout>
     </v-card-text>
@@ -46,12 +46,12 @@
 export default {
   name: "explore-card",
   props: {
-    title: String,
-    day: String,
-    img: String,
-    location: String,
-    id: String,
     stream: Object
+  },
+  computed: {
+    owner () {
+      return this.stream.owner || { name: 'Anonymous', country: 'CH', picture: 'http://music.virginia.edu/sites/music.virginia.edu/files/styles/faculty_profile_image/public/default_images/person-placeholder_3.png?itok=dtpqDURH' }
+    }
   }
 };
 </script>

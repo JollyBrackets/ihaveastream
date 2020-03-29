@@ -7,22 +7,23 @@
         <v-chip close small @click:close="resetSearch">{{ searchTerm }}</v-chip>
       </p>
 
+      <v-row>
+        <v-chip
+            v-for="category in categories"
+            :key="category"
+            v-html="category"
+            small
+            color="primary"
+            class="mx-2 my-1"
+          />
+      </v-row>
+
       <template v-if="streams">
         <v-row wrap>
           <v-col cols="12" sm="6" md="4" lg="3" v-for="stream in streams" :key="stream.id">
-            <explore-card
-              :stream="stream"
-              :title="stream.name"
-              :id="stream.id"
-              :day="stream.sessions[stream.sessions.length -1].start | moment('from', 'now')"
-              img="https://source.unsplash.com/500x300/?yoga"
-              location="Zürich, Altstetten"
-            />
+            <explore-card :stream="stream" />
           </v-col>
         </v-row>
-        <pre>
-        {{ streams }}
-        </pre>
       </template>
 
       <template v-else>
@@ -33,7 +34,6 @@
           class="mx-auto"
         />
       </template>
-
     </v-container>
   </v-container>
 </template>
@@ -51,7 +51,19 @@ export default {
   components: { FilterBar, ExploreCard },
   name: 'Search',
   data: () => ({
-    streams: null
+    streams: null,
+    categories: [
+      'Sports & Fitness',
+      'Dancing',
+      'Cooking',
+      'Drinks & Chat',
+      'Meditation & Spirituality',
+      'Arts & Crafts & Music',
+      'Educational & Languages',
+      'Gaming & Media',
+      'Kids Entertainment',
+      'Others'
+    ]
   }),
   created() {
     this.requestData()
