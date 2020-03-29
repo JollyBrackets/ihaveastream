@@ -45,7 +45,8 @@ export default {
         const zip = response.data.zip
         const country = response.data.countryCode
 
-        console.log({ zip, country })
+
+        //console.log({ zip, country })
       })
   },
   watch: {
@@ -58,7 +59,6 @@ export default {
       this.search({ name: this.$props.searchTerm || '' })
     },
     search({ name = "", price = { max: '' }, language = ''} = {}) {
-      console.log('search')
       return this.$http.get(`api/v1/streams/?name=${name}&price_max=${price.max}&language=${language}`)
         .then(response => {
           this.results = response.data  
