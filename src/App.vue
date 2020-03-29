@@ -124,6 +124,11 @@ export default {
       this.$http.get("api/v1/users/me").then(response => {
         this.user = response.data
       })
+      .catch(response => {
+        if (response.status === '401') {
+          this.setToken(null)
+        }
+      })
     },
 
     login() {
