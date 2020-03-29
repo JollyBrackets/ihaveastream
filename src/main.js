@@ -10,6 +10,13 @@ Vue.use(VueAnalytics, {
   router
 })
 
+const gauthOption = {
+  clientId: "598223967097-q4amponcts0mpsocn313onh2k030fhka.apps.googleusercontent.com",
+  scope: 'profile email',
+  prompt: 'select_account',
+}
+Vue.use(GAuth, gauthOption)
+
 new Vue({
   router,
   vuetify,
