@@ -19,7 +19,7 @@
                   <p class="title mt-4 mb-0">{{ member.name }}</p>
                   <p class="subheading primary--text">{{ member.role }}</p>
                 </v-card-text>
-                <v-card-text style="height: 200px; overflow-y: scroll" class="primary white--text" v-else>
+                <v-card-text style="height: 200px; overflow-y: auto" class="primary white--text" v-else>
                   Short bio...
                 </v-card-text>
 
