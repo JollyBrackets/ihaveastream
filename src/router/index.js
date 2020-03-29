@@ -23,7 +23,8 @@ const routes = [
   {
     path: '/stream/:id',
     name: 'Stream',
-    component: () => import(/* webpackChunkName: "stream" */ '../views/Stream.vue')
+    component: () => import(/* webpackChunkName: "stream" */ '../views/Stream.vue'),
+    props: true
   },
   {
     path: '/create-Stream',

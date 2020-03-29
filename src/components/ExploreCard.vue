@@ -6,10 +6,9 @@
       gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
       >
         <template v-slot:placeholder>
-          <v-row class="fill-height ma-0" align="center" justify="center">
-            <v-progress-circular indeterminate color="red lighten-3" />
-          </v-row>
+          <loader />
         </template>
+        
         <v-row
           class="fill-height ma-0"
           align="center"

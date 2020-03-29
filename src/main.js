@@ -5,12 +5,17 @@ import vuetify from './plugins/vuetify';
 import VueAnalytics from 'vue-analytics'
 import GAuth from 'vue-google-oauth2'
 import VueResource from 'vue-resource';
+import VueMoment from 'vue-moment'
+import loader from '@/components/Loader.vue'
+
+Vue.component('loader', loader)
 
 Vue.config.productionTip = false
 Vue.use(VueAnalytics, {
   id: 'UA-162053829-1',
   router
 })
+Vue.use(VueMoment);
 
 const gauthOption = {
   clientId: "598223967097-q4amponcts0mpsocn313onh2k030fhka.apps.googleusercontent.com",

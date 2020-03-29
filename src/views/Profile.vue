@@ -5,9 +5,7 @@
         <v-avatar size="120" class="elevation-2 mt-12">
           <v-img :src="user.picture">
             <template v-slot:placeholder>
-              <v-row class="fill-height ma-0" align="center" justify="center">
-                <v-progress-circular indeterminate color="red lighten-3" />
-              </v-row>
+              <loader />
             </template>
           </v-img>
         </v-avatar>
