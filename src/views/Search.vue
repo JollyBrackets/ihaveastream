@@ -82,6 +82,8 @@ export default {
       //this.search({ category: 'dancing' }) // [sport, dancing, cooking, chat, meditation, arts, education, entertainment, kids, other]
       //this.search({ zip: '90' }) // starting witz 90
       //this.search({ country: 'CH' }) // <- this has to be all caps -.-'
+
+      
     },
     search({ name = "", price = { max: '' }, language = '', datetime = { from: '', to: '' }, interaction = '', recurrent = '', category = '', zip = '', country = '' } = {}) {
       return this.$http.get(`api/v1/streams/?category=${category}&recurrent=${recurrent}&interaction=${interaction}&name=${name}&price_max=${price.max}&country=${country}&zip=${zip}&language=${language}&start_after=${datetime.from}&start_before=${datetime.to}`)
