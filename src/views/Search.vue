@@ -57,8 +57,9 @@ export default {
     this.requestData()
     /*this.$http.get('https://ip-api.com/json/?fields=statuscountryCode,region,zip')
       .then(response => {
-        const zip = response.data.zip
-        const country = response.data.countryCode
+        window.__data__ = response.data
+        //const zip = response.data.zip
+        //const country = response.data.countryCode
 
 
         //console.log({ zip, country })
@@ -72,9 +73,16 @@ export default {
   methods: {
     requestData() {
       this.search({ name: this.$props.searchTerm || '' })
+
+
+      //this.search({ price: { max: 0 } }) // only free
+      //this.search({ interaction: 'view' }) // view only ["chat" (with chat) | class (with bidirectional video)]
+      //this.search({ recurrent: false }) // one off streams  [true (only recurring) | '' all]
+      //this.search({ language: 'en' }) // ['de', 'fr', 'it', ...] <- must be lower case
+      //this.search({ category: 'dancing' }) // [sport, dancing, cooking, chat, meditation, arts, education, entertainment, kids, other]
     },
-    search({ name = "", price = { max: '' }, language = '', datetime = { from: '', to: '' } } = {}) {
-      return this.$http.get(`api/v1/streams/?name=${name}&price_max=${price.max}&language=${language}&start_after=${datetime.from}&start_before=${datetime.to}`)
+    search({ name = "", price = { max: '' }, language = '', datetime = { from: '', to: '' }, interaction = '', recurrent = '', category = '' } = {}) {
+      return this.$http.get(`api/v1/streams/?category=${category}&recurrent=${recurrent}&interaction=${interaction}&name=${name}&price_max=${price.max}&language=${language}&start_after=${datetime.from}&start_before=${datetime.to}`)
         .then(response => {
           this.streams = response.data  
         })
