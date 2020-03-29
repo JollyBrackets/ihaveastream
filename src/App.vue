@@ -26,11 +26,11 @@
 
         </v-flex>
         <v-flex shrink text-right class="px-9">
-          <v-btn text class="text-none accent hidden-sm-and-down" @click="$router.push('create-stream')">
+          <v-btn text class="text-none accent hidden-sm-and-down" @click="$router.push('/create-stream')">
             I HAVE A STREAM
           </v-btn>
 
-          <v-btn fab small class="accent hidden-md-and-up" @click="$router.push('create-stream')">
+          <v-btn fab small class="accent hidden-md-and-up" @click="$router.push('/create-stream')">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           

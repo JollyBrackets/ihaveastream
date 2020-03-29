@@ -1,6 +1,11 @@
 <template>
     <v-layout row style="background-color: rgba(0,0,0,0.7)">
         <v-btn text large class="text-none flex" color="white">
+          <v-icon small color="primary" class="mr-2">mdi-clock</v-icon>
+          <span>Now</span>
+        </v-btn>
+
+        <v-btn text large class="text-none flex" color="white">
           <v-icon small color="primary" class="mr-2">mdi-map</v-icon>
           <span>Near Me</span>
         </v-btn>
@@ -8,11 +13,6 @@
         <v-btn text large class="text-none flex" color="white">
           <v-icon small color="primary" class="mr-2">mdi-web</v-icon>
           <span>English</span>
-        </v-btn>
-
-        <v-btn text large class="text-none flex" color="white">
-          <v-icon small color="primary" class="mr-2">mdi-calendar</v-icon>
-          <span>Today</span>
         </v-btn>
 
         <v-menu offset-y>

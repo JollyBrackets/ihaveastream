@@ -10,16 +10,19 @@
     
     <v-container>
       <v-row class="text-center white--text">
-        <v-col>
-          <h1 class="my-4">{{ heroTitle[Math.floor(Math.random() * heroTitle.length)] }}</h1>
-          <p class="font-weight-bold">{{ heroMessage[Math.floor(Math.random() * heroMessage.length)] }}</p>
-          <v-btn text class="text-none primary" @click="$router.push('create-stream')">
-            I HAVE A STREAM
+        <v-col class="py-12">
+          <p class="display-1 text-uppercase">{{ heroTitle[Math.floor(Math.random() * heroTitle.length)] }}</p>
+          <p class="headline">{{ heroMessage[Math.floor(Math.random() * heroMessage.length)] }}</p>
+          <v-btn text class="accent mx-5" @click="$vuetify.goTo('#discover')">
+            Discover Streams
+          </v-btn>
+          <v-btn text class="primary mx-5" @click="$router.push('create-stream')">
+            I have a stream
           </v-btn>
         </v-col>
       </v-row>
 
-      <h2 class="font-weight-light mt-5 mb-2 white--text">
+      <h2 class="font-weight-light mt-5 mb-2 white--text" id="discover">
         <span>Let's work out!</span>
         <v-btn text icon class="right">
           <v-icon size="18" color="white">mdi-chevron-right</v-icon>

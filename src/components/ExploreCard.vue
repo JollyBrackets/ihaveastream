@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="1">
+  <v-card elevation="1" @click="$router.push({ name: 'Stream', params: { id: 'bla'} })">
     <v-img
       :src="img"
       :height="150"
