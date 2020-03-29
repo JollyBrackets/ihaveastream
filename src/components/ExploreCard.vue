@@ -18,14 +18,9 @@
           <v-icon :size="40" color="white">mdi-play-circle-outline</v-icon>
         </v-row>
     </v-img>
-    <v-card-title class="subheading mb-0">
-      {{ title }}
-    </v-card-title>
     <v-card-text>
-      <p class="mb-0">
-        <v-icon small color="grey" class="mr-2">fa-calendar-alt</v-icon>
-        <span>{{ day }}</span>
-      </p>
+      <p class="mb-0 primary--text">{{ day }}</p>
+      <p class="title mb-0">{{ title }}</p>
     </v-card-text>
     <v-divider />
     <v-card-text class="py-2">

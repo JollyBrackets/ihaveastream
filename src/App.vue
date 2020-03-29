@@ -66,7 +66,7 @@
         </v-card-text>
 
         <v-card-text class="white--text pt-0">
-          Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          I-have-a-stream.com is the leading platform to connect streamers and stream-searchers. During lock-ups or after, we offer the much needed point of contact for streamers to advertise their streams and for their counterparts to find something that matches their interests. Feel like sharing? Learn how to stream if you want to share a skill or just host a coffee meetup. Or just want to participate? Then put together your personal schedule, enroll in a regular class or just browse for something new!
         </v-card-text>
 
         <v-divider></v-divider>
