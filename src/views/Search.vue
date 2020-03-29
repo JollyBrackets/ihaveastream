@@ -57,9 +57,16 @@ export default {
   methods: {
     requestData() {
       this.search({ name: this.$props.searchTerm || '' })
+
+
+      //this.search({ price: { max: 0 } }) // only free
+      //this.search({ interaction: 'view' }) // view only ["chat" (with chat) | class (with bidirectional video)]
+      //this.search({ recurrent: false }) // one off streams  [true (only recurring) | '' all]
+      //this.search({ language: 'en' }) ['de', 'fr', 'it', ...] <- must be lower case
+      //this.search({ category: 'sport' }) [sport, dancing, cooking, chat, meditation, arts, education, entertainment, kids, other]
     },
-    search({ name = "", price = { max: '' }, language = '', datetime = { from: '', to: '' } } = {}) {
-      return this.$http.get(`api/v1/streams/?name=${name}&price_max=${price.max}&language=${language}&start_after=${datetime.from}&start_before=${datetime.to}`)
+    search({ name = "", price = { max: '' }, language = '', datetime = { from: '', to: '' }, interaction = '', recurrent = '', category = '' } = {}) {
+      return this.$http.get(`api/v1/streams/?category=${category}&recurrent=${recurrent}&interaction=${interaction}&name=${name}&price_max=${price.max}&language=${language}&start_after=${datetime.from}&start_before=${datetime.to}`)
         .then(response => {
           this.results = response.data  
         })
