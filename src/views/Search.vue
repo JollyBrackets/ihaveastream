@@ -40,14 +40,14 @@ export default {
   }),
   created() {
     this.requestData()
-    this.$http.get('https://ip-api.com/json/?fields=statuscountryCode,region,zip')
+    /*this.$http.get('https://ip-api.com/json/?fields=statuscountryCode,region,zip')
       .then(response => {
         const zip = response.data.zip
         const country = response.data.countryCode
 
 
         //console.log({ zip, country })
-      })
+      })*/
   },
   watch: {
     searchTerm() {
