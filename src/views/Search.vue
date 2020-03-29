@@ -58,8 +58,8 @@ export default {
     requestData() {
       this.search({ name: this.$props.searchTerm || '' })
     },
-    search({ name = "", price = { max: '' }, language = ''} = {}) {
-      return this.$http.get(`api/v1/streams/?name=${name}&price_max=${price.max}&language=${language}`)
+    search({ name = "", price = { max: '' }, language = '', datetime = { from: '', to: '' } } = {}) {
+      return this.$http.get(`api/v1/streams/?name=${name}&price_max=${price.max}&language=${language}&start_after=${datetime.from}&start_before=${datetime.to}`)
         .then(response => {
           this.results = response.data  
         })
