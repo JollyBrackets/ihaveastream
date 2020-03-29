@@ -136,7 +136,7 @@ export default {
         .getAuthCode()
         .then(authCode => {
           //on success
-          var formData = new FormData();
+          const formData = new FormData();
           formData.append('code', authCode);
           formData.append('provider', 'google-oauth2');
           formData.append('redirect_uri', window.location.origin);
