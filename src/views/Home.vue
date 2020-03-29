@@ -9,8 +9,8 @@
     <filter-bar></filter-bar>
     
     <v-container>
-      <v-row class="text-center white--text">
-        <v-col class="py-12">
+      <v-row class="text-center white--text py-12 my-12">
+        <v-col>
           <p class="display-1 text-uppercase">{{ heroTitle[Math.floor(Math.random() * heroTitle.length)] }}</p>
           <p class="headline">{{ heroMessage[Math.floor(Math.random() * heroMessage.length)] }}</p>
           <v-btn text class="accent mx-5" @click="$vuetify.goTo('#discover')">
@@ -22,24 +22,14 @@
         </v-col>
       </v-row>
 
-      <template v-if="streams">
-        <v-container fluid v-for="category in Object.keys(categories)" :key="category">
-          <h2 class="font-weight-light mt-5 mb-2 white--text" id="discover">
-            <span>{{ category }}</span>
-            <v-btn text icon class="right">
-              <v-icon size="18" color="white">mdi-chevron-right</v-icon>
-            </v-btn>
-          </h2>
-          <v-row>
-            <v-col cols="12" sm="6" md="4" class="pa-2" v-for="stream in categories[category]" :key="stream.id">
-              <explore-card
-                :stream="stream"
-              />
-            </v-col>
-          </v-row>
-        </v-container>
-      </template>
-      
+      <v-row v-if="streams" id="discover">
+        <v-col cols="12" sm="6" md="4" class="pa-2" v-for="stream in streams" :key="stream.id">
+          <explore-card
+            :stream="stream"
+          />
+        </v-col>
+      </v-row>
+
     </v-container>
   </v-container>
 </template>
@@ -47,23 +37,13 @@
 <script>
 import ExploreCard from '@/components/ExploreCard.vue'
 import FilterBar from '@/components/FilterBar.vue'
+
 export default {
   components: { ExploreCard, FilterBar },
   name: 'Home',
   async created () {
     const response = await this.$http.get(`api/v1/streams`)
-    this.streams = response.data  
-  },
-  computed: {
-    categories () {
-      return this.streams.reduce((categories, stream) => {
-        categories[stream.category] = [
-          ...(categories[stream.category] || []),
-          stream
-        ]
-        return categories
-      }, {})
-    }
+    this.streams = response.data.filter((s, i) => i < 9)
   },
   data: () => ({
     streams: null,
