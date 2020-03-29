@@ -15,7 +15,7 @@
             small
             single-line
             placeholder="Find streams"
-            @keypress.enter="$router.push({ name: 'search', params: { searchTerm } })"
+            @keypress.enter="search"
           >
             <v-icon small slot="append">mdi-magnify</v-icon>
           </v-text-field>
@@ -85,5 +85,11 @@ export default {
   data: () => ({
     searchTerm: null
   }),
+  methods: {
+    search () {
+      this.$router.push({ name: 'search', params: { searchTerm: this.searchTerm } })
+      this.searchTerm = null
+    }
+  }
 };
 </script>

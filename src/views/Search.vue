@@ -4,9 +4,9 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-            <p class="caption">
+            <p class="caption" v-if="searchTerm">
               <span class="mr-4">Showing results for:</span>
-              <v-chip small>{{ searchTerm }}</v-chip>
+              <v-chip close small @click:close="resetSearch">{{ searchTerm }}</v-chip>
             </p>
 
             <v-skeleton-loader
@@ -34,6 +34,11 @@ export default {
   name: 'Home',
   data: () => ({
   }),
+  methods: {
+    resetSearch () {
+      this.$router.push('/search')
+    }
+  }
 }
 
 </script>
