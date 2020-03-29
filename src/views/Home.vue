@@ -22,12 +22,16 @@
         </v-col>
       </v-row>
 
-      <v-row v-if="streams" id="discover">
+      <v-row v-if="streams" id="discover" class="mb-12">
         <v-col cols="12" sm="6" md="4" class="pa-2" v-for="stream in streams" :key="stream.id">
           <explore-card
             :stream="stream"
           />
         </v-col>
+      </v-row>
+
+      <v-row v-else style="height: 200px">
+        <loader />
       </v-row>
 
     </v-container>
@@ -43,7 +47,9 @@ export default {
   name: 'Home',
   async created () {
     const response = await this.$http.get(`api/v1/streams`)
-    this.streams = response.data.filter((s, i) => i < 9)
+    this.streams = response.data.filter((s, i) => {
+      return s.sessions.length > 0 && i < 9
+    })
   },
   data: () => ({
     streams: null,
