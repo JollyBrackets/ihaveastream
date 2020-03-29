@@ -16,6 +16,9 @@
           </a>
         </p>
 
+        <v-btn @click="createStream">create</v-btn>
+
+        
         <p class="subheading mt-12">Some Help to pick a streaming service</p>
         <v-img src="@/assets/flowchart.png">
           <template v-slot:placeholder>
@@ -31,7 +34,36 @@
 export default {
   name: 'Create',
   data: () => ({
-  })
+  }),
+  methods: {
+    createStream() {
+
+      const formData = new FormData();
+      formData.append('name', 'name');
+      formData.append('description', 'description');
+      formData.append('price', 0);
+      formData.append('interaction', 'view');
+      formData.append('duration', '30');
+      formData.append('category', 'sport');
+      formData.append('zip', 9000);
+      formData.append('country', 'CH');
+      formData.append('language', 'de');
+
+      this.$http.post('api/v1/streams/', formData)
+        .then(response => {
+          const stream = response.data
+
+          const formData = new FormData();
+          formData.append('title', 'title');
+          formData.append('description', 'description');
+          formData.append('tech', 'youtube');
+          formData.append('url', 'https://google.ch');
+          formData.append('start', new Date());
+
+          this.$http.post(`api/v1/streams/${stream.id}/add_session/`, formData)
+        })
+    }
+  }
 }
 
 </script>
