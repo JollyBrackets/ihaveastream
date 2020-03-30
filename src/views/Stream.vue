@@ -21,7 +21,11 @@
                 <p class="subheading d-inline text-uppercase accent--text">Next Stream</p>
                 <p class="display-1">{{ nextSession.start | moment('from', 'now')}}</p>
 
-                <v-btn color="primary">
+                <v-btn 
+                  color="primary"
+                  target="_blank"
+                  :href="`https://calendar.google.com/calendar/r/eventedit?trp=false&text=${stream.name}&details=${stream.description}!&dates=${$moment(nextSession.start).format('YYYYMMDDThhmmss')}/${$moment(nextSession.start).add('minutes',  stream.duration === 'other' ? 120 : stream.duration).format('YYYYMMDDThhmmss')}`"
+                >
                   Add to calendar
                 </v-btn>
               </v-col>
