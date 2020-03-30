@@ -77,6 +77,7 @@
               </v-img>
               <v-card-text v-if="session">
                 <v-btn small 
+                  target="_blank"
                   :href="`https://calendar.google.com/calendar/r/eventedit?trp=false&text=${stream.name}&details=${stream.description}!&dates=${$moment(session.start).format('YYYYMMDDThhmmss')}/${$moment(session.start).add('minutes',  stream.duration === 'other' ? 120 : stream.duration).format('YYYYMMDDThhmmss')}`">
                   Add to calender
                 </v-btn>
