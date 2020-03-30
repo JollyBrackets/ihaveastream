@@ -16,7 +16,7 @@
           <v-btn text class="accent mx-5" @click="$vuetify.goTo('#discover')">
             Discover Streams
           </v-btn>
-          <v-btn text class="primary mx-5" @click="$router.push('create-stream')">
+          <v-btn text class="primary mx-5" @click="$store.user ? $router.push('/create-stream') : $store.login()">
             I have a stream
           </v-btn>
         </v-col>

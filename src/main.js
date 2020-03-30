@@ -18,7 +18,6 @@ Vue.use(VueAnalytics, {
 })
 Vue.use(VueMoment);
 
-Vue.prototype.$store = store
 
 const gauthOption = {
   clientId: "598223967097-q4amponcts0mpsocn313onh2k030fhka.apps.googleusercontent.com",
@@ -27,6 +26,7 @@ const gauthOption = {
 }
 Vue.use(GAuth, gauthOption)
 Vue.use(VueResource);
+Vue.prototype.$store = store
 
 Vue.http.options.root = process.env.VUE_APP_API_ROOT || 'https://ihaveastream-staging.herokuapp.com'
 

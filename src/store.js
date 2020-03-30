@@ -1,7 +1,45 @@
 import Vue from 'vue'
 
 export default new Vue({
+  methods: {
+    restoreUser () {
+      const token = localStorage.getItem('token') || null
+      
+      if (token) {
+        this.setToken(token)
+        this.loadUser()
+      }
+    },
+    setToken(token) {
+      window.localStorage.setItem('token', token)
+      Vue.http.headers.common['Authorization'] = token
+    },
+
+    async loadUser() {
+      try {
+        const response = await this.$http.get("api/v1/users/me")
+        this.user = response.data
+      } catch(error) {
+        if (error.status === '401') {
+          this.setToken(null)
+        }
+      }
+    },
+
+    async login() {
+      const authCode = await this.$gAuth.getAuthCode()
+      const formData = new FormData();
+      formData.append('code', authCode);
+      formData.append('provider', 'google-oauth2');
+      formData.append('redirect_uri', window.location.origin);
+
+      const response = await this.$http.post("auth/login/social/knox/", formData);
+      this.setToken(`Token ${response.data.token}`)
+      this.loadUser()
+    }
+  },
   data: {
+    user: null,
     techOptions: [
       { value: "vimeo", text: "Vimeo" },
       { value: "youtube", text: "Youtube" },

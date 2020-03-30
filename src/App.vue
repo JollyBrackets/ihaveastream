@@ -26,26 +26,26 @@
 
         </v-flex>
         <v-flex shrink text-right class="px-9">
-          <v-btn text class="text-none accent hidden-sm-and-down" @click="$router.push('/create-stream')">
+          <v-btn text class="text-none accent hidden-sm-and-down" @click="$store.user ? $router.push('/create-stream') : $store.login()">
             I HAVE A STREAM
           </v-btn>
 
-          <v-btn fab small class="accent hidden-md-and-up" @click="$router.push('/create-stream')">
+          <v-btn fab small class="accent hidden-md-and-up" @click="$store.user ? $router.push('/create-stream') : $store.login()">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           
-          <template v-if="this.user">
+          <template v-if="$store.user">
             <v-btn fab small class="ml-3" @click="$router.push('/profile')">
               <v-avatar size="40">
                 <img
-                  :src="user.picture"
-                  :alt="user.firstName"
+                  :src="$store.user.picture"
+                  :alt="$store.user.firstName"
                 >
               </v-avatar>
             </v-btn>
           </template>
           <template v-else>
-            <v-btn fab small class="ml-3" @click="login">
+            <v-btn fab small class="ml-3" @click="$store.login">
               <v-icon>mdi-account-circle-outline</v-icon>
             </v-btn>
           </template>
@@ -92,64 +92,19 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
   name: 'App',
+  created () {
+    this.$store.restoreUser()
+  },
   data: () => ({
     searchTerm: null,
     user: null,
   }),
-  created() {
-    const token = localStorage.getItem('token') || null
-    
-    if (token) {
-      this.setToken(token)
-      this.loadUser()
-    }
-  },
   methods: {
     search () {
       this.$router.push({ name: 'search', params: { searchTerm: this.searchTerm } })
       this.searchTerm = null
-    },
-
-
-    setToken(token) {
-      window.localStorage.setItem('token', token)
-      Vue.http.headers.common['Authorization'] = token
-    },
-
-    loadUser() {
-      this.$http.get("api/v1/users/me").then(response => {
-        this.user = response.data
-      })
-      .catch(response => {
-        if (response.status === '401') {
-          this.setToken(null)
-        }
-      })
-    },
-
-    login() {
-      this.$gAuth
-        .getAuthCode()
-        .then(authCode => {
-          //on success
-          const formData = new FormData();
-          formData.append('code', authCode);
-          formData.append('provider', 'google-oauth2');
-          formData.append('redirect_uri', window.location.origin);
-
-          return this.$http.post("auth/login/social/knox/", formData);
-        })
-        .then((response) => {
-          this.setToken(`Token ${response.data.token}`)
-        })
-        .then(() => this.loadUser())
-        .catch((e) => {
-          throw e
-        })
     }
   }
 };
