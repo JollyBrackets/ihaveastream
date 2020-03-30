@@ -22,11 +22,16 @@
         </v-col>
       </v-row>
 
-      <v-row v-if="streams" id="discover" class="mb-12">
+      <v-row v-if="streams" id="discover" class="mb-12" justify="center">
         <v-col cols="12" sm="6" md="4" class="pa-2" v-for="stream in streams" :key="stream.id">
           <explore-card
             :stream="stream"
           />
+        </v-col>
+        <v-col cols="12" sm="6" md="4" class="py-12">
+          <v-btn large color="primary" block @click="$router.push('/search')">
+            Show more
+          </v-btn>
         </v-col>
       </v-row>
 
