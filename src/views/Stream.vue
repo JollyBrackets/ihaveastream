@@ -48,7 +48,7 @@
         <v-layout class="mt-5">
           <v-flex shrink>
             <v-avatar size="50" class="elevation-2">
-              <v-img :src="stream.owner.picture">
+              <v-img :src="stream.owner.picture || 'http://music.virginia.edu/sites/music.virginia.edu/files/styles/faculty_profile_image/public/default_images/person-placeholder_3.png?itok=dtpqDURH'">
                 <template v-slot:placeholder>
                   <loader />
                 </template>
@@ -69,8 +69,8 @@
           <div v-for="session in upcomingSessions" :key="session.id">
             <v-card>
               <v-img
-                :src="session.image || 'https://source.unsplash.com/500x300/?streaming'"
-                :height="150"
+                :src="stream.logo || 'https://source.unsplash.com/500x300/?'+ stream.category"
+                :aspect-ratio="16/9"
                 gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
                 >
                   <template v-slot:placeholder>
@@ -94,8 +94,8 @@
           <div v-for="session in pastSessions" :key="`past_${session.id}`">
             <v-card class="mt-5">
               <v-img
-                :src="session.image || 'https://source.unsplash.com/500x300/?streaming'"
-                :height="150"
+                :src="stream.logo || 'https://source.unsplash.com/500x300/?'+ stream.category"
+                :aspect-ratio="16/9"
                 gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
                 >
                   <template v-slot:placeholder>
