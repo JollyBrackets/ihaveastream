@@ -60,7 +60,6 @@
 
 
       <v-col cols="3">
-        <template v-if="upcommingSessions.length > 0">
           <p class="subheading">Upcomming streams</p>
           <div v-for="session in upcommingSessions" :key="session.id">
             <v-card>
@@ -76,15 +75,18 @@
                     <v-icon :size="40" color="white">mdi-play-circle-outline</v-icon>
                   </v-row>
               </v-img>
-              <v-card-text>
-                <v-btn small>Add to calender</v-btn>
+              <v-card-text v-if="session">
+                <v-btn small 
+                  :href="`https://calendar.google.com/calendar/r/eventedit?trp=false&text=${stream.name}&details=${stream.description}!&dates=${$moment(session.start).format('YYYYMMDDThhmmss')}/${$moment(session.start).add('minutes',  stream.duration === 'other' ? 120 : stream.duration).format('YYYYMMDDThhmmss')}`">
+                  Add to calender
+                </v-btn>
               </v-card-text>
             </v-card>
           </div>
 
           <p class="subheading mt-5">Past streams</p>
           <div v-for="session in pastSessions" :key="`past_${session.id}`">
-            <v-card>
+            <v-card class="mt-5">
               <v-img
                 :src="session.image || 'https://source.unsplash.com/500x300/?streaming'"
                 :height="150"
@@ -102,7 +104,6 @@
               </v-card-text>
             </v-card>
           </div>
-        </template>
 
 
       </v-col>
@@ -124,10 +125,11 @@ export default {
       type: String,
       default: null
     },
-    stream: null
   },
   name: "Stream",
-  data: () => ({}),
+  data: () => ({
+    stream: null
+  }),
   computed: {
     liveSession () {
       return this.stream.sessions.find(session => {
@@ -142,10 +144,10 @@ export default {
       return this.stream.sessions.filter(session => moment(session.start).isAfter(moment()))[0]
     },
     upcommingSessions () {
-      return this.stream.sessions.filter(session => moment(session.start).isAfter(moment(this.liveSession.start)))
+      return this.stream.sessions.filter(session => moment(session.start).isAfter(moment()))
     },
     pastSessions () {
-      return this.stream.sessions.filter(session => moment(session.start).isAfter(moment(this.liveSession.start)))
+      return this.stream.sessions.filter(session => moment(session.start).isBefore(moment()))
     }
   },
   async created() {
