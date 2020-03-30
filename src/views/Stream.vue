@@ -153,7 +153,11 @@ export default {
       return this.stream.sessions.filter(session => moment(session.start).isAfter(moment()))
     },
     pastSessions () {
-      return this.stream.sessions.filter(session => moment(session.start).isBefore(moment()))
+      return this.stream.sessions.filter(session => {
+        const duration = this.stream.duration === 'open' ? 120 : this.stream.duration
+
+        return moment(session.start).isBefore(moment().subtract(duration, 'minutes'))
+      })
     }
   },
   async created() {
