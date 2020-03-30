@@ -390,7 +390,7 @@ export default {
         formData.append("zip", 9000);
         formData.append("country", "CH");
         formData.append("language", this.language);
-        formData.append('logo', this.logo, 'logo');
+        formData.append('logo', this.logo, this.logo.name);
 
         this.$http.post("api/v1/streams/", formData).then(response => {
           const stream = response.data;
