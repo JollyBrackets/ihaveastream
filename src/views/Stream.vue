@@ -30,7 +30,7 @@
                 </v-btn>
               </v-col>
               <template v-else>
-                <p class="title">No upcomming streams planned</p>
+                <p class="title">No upcoming streams planned</p>
               </template>
             </v-row>
         </v-img>
@@ -64,8 +64,8 @@
 
 
       <v-col cols="3">
-          <p class="subheading">Upcomming streams</p>
-          <div v-for="session in upcommingSessions" :key="session.id">
+          <p class="subheading">Upcoming streams</p>
+          <div v-for="session in upcomingSessions" :key="session.id">
             <v-card>
               <v-img
                 :src="session.image || 'https://source.unsplash.com/500x300/?streaming'"
@@ -148,7 +148,7 @@ export default {
     nextSession () {
       return this.stream.sessions.filter(session => moment(session.start).isAfter(moment()))[0]
     },
-    upcommingSessions () {
+    upcomingSessions () {
       return this.stream.sessions.filter(session => moment(session.start).isAfter(moment()))
     },
     pastSessions () {

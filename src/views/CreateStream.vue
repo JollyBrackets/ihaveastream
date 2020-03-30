@@ -11,26 +11,13 @@
           >Here is a really helpful article to get started</a>
         </p>
 
-        <p>
-          <a
-            href="https://docs.google.com/forms/d/1-LOLNv0sPoTH8010voWzZX4vXDcwvDjoGd61p7KcTrM/viewform?edit_requested=true"
-            target="blank"
-          >Form to create your stream</a>
-        </p>
-
-        <v-btn @click="createStream">create</v-btn>
-
         <v-dialog v-model="dialog" width="1000">
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" class="ml-4">
-              I need some help
-            </v-btn>
+            <v-btn text v-on="on" class="ml-4">I need some help</v-btn>
           </template>
 
           <v-card>
-            <v-card-title class="headline" primary-title>
-              Privacy Policy
-            </v-card-title>
+            <v-card-title class="headline" primary-title>Privacy Policy</v-card-title>
 
             <v-card-text>
               <p class="subheading mt-12">Here is an easy flow chart to get you started</p>
@@ -72,16 +59,181 @@
             </v-card-text>
           </v-card>
         </v-dialog>
+
+        <v-form ref="form" v-model="valid">
+          <v-row>
+            <v-col cols="12" md="6">
+              <p class="title primary--text mb-0">Tell us about your stream</p>
+              <p class="caption">This </p>
+
+              <v-text-field
+                v-model="name"
+                label="Name"
+                required
+                :rules="[v => !!v || 'Name is required']"
+              />
+
+              <v-text-field
+                v-model="description"
+                label="Description"
+                required
+                :rules="[v => !!v || 'Description is required']"
+              />
+
+              <v-text-field
+                v-model="price"
+                label="Price"
+              />
+
+              <v-select
+                v-model="interaction"
+                :items="interactionOptions"
+                :rules="[v => !!v || 'Item is required']"
+                label="Interaction"
+                required
+              ></v-select>
+
+              <v-select
+                v-model="duration"
+                :items="durationOptions"
+                :rules="[v => !!v || 'Item is required']"
+                label="Duration"
+                required
+              ></v-select>
+
+              <v-select
+                v-model="category"
+                :items="categoryOptions"
+                :rules="[v => !!v || 'Item is required']"
+                label="Category"
+                required
+              ></v-select>
+
+              <v-select
+                v-model="language"
+                :items="languageOptions"
+                :rules="[v => !!v || 'Item is required']"
+                label="Language"
+                required
+              ></v-select>
+            </v-col>
+            <v-col cols="12" md="6">
+              <p class="title primary--text mb-0">Tell us about your first session</p>
+              <p class="caption">You'll be able to add more sessions later!</p>
+
+              <v-select
+                v-model="tech"
+                :items="techOptions"
+                :rules="[v => !!v || 'Item is required']"
+                label="Streaming Platform"
+                required
+              ></v-select>
+
+              <v-text-field
+                v-model="url"
+                label="Stream URL"
+                required
+                :rules="[v => !!v || 'URL is required']"
+              />
+
+              <v-menu
+                ref="dateMenu"
+                v-model="dateMenu"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="date"
+                    label="Date"
+                    hint="MM/DD/YYYY format"
+                    persistent-hint
+                    prepend-icon="mdi-calendar"
+                    v-on="on"
+                    required
+                    :rules="[v => !!v || 'Date is required']"
+                  />
+                </template>
+                <v-date-picker v-model="date" no-title @input="dateMenu = false"></v-date-picker>
+              </v-menu>
+
+              <v-menu
+                ref="timeMenu"
+                v-model="timeMenu"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="time"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="time"
+                    label="Picker in menu"
+                    prepend-icon="mdi-clock-outline"
+                    readonly
+                    v-on="on"
+                    required
+                    :rules="[v => !!v || 'Time is required']"
+                  />
+                </template>
+                <v-time-picker
+                  v-if="timeMenu"
+                  v-model="time"
+                  full-width
+                  @click:minute="$refs.timeMenu.save(time)"
+                  format="24hr"
+                ></v-time-picker>
+              </v-menu>
+
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-btn
+                @click="createStream"
+                class="float-right"
+                color="primary"
+                :loading="loading"
+              >
+              Create My Stream
+            </v-btn>
+
+            </v-col>
+          </v-row>
+        </v-form>
+
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: "Create",
   data: () => ({
+    loading: false,
     dialog: false,
+    dateMenu: false,
+    timeMenu: false,
+    valid: false,
+    name: null,
+    description: null,
+    price: 0,
+    interaction: "view",
+    duration: "30",
+    category: null,
+    language: "en",
+    tech: null,
+    url: null,
+    date: null,
+    time: null,
     providers: [
       {
         name: "Zoom",
@@ -173,33 +325,94 @@ export default {
         needs: "-",
         privacy: "Yes + paywall"
       }
+    ],
+    techOptions: [
+      { value: "vimeo", text: "Vimeo" },
+      { value: "youtube", text: "Youtube" },
+      { value: "zoom", text: "Zoom" }
+    ],
+    durationOptions: [
+      { value: "15", text: "15" },
+      { value: "30", text: "30" },
+      { value: "60", text: "60" },
+      { value: "120", text: "120" },
+      { value: "open", text: "open" }
+    ],
+    interactionOptions: [
+      { value: "view", text: "view only" },
+      { value: "chat", text: "with text chat" },
+      { value: "class", text: "with video chat" }
+    ],
+    categoryOptions: [
+      { value: "sport", text: "Sport" },
+      { value: "dancing", text: "Dancing" },
+      { value: "cooking", text: "Cooking" },
+      { value: "chat", text: "Drinks & Chat" },
+      { value: "meditation", text: "Meditation & Spirituality" },
+      { value: "arts", text: "Arts & Crafts & Music" },
+      { value: "education", text: "Educational & Languages" },
+      { value: "entertainment", text: "Gaming & Media" },
+      { value: "kids", text: "Kids Entertainment" },
+      { value: "other", text: "Other" }
+    ],
+    languageOptions: [
+      { value: "ch", text: "Swiss German" },
+      { value: "de", text: "German" },
+      { value: "en", text: "English" },
+      { value: "fr", text: "French" },
+      { value: "es", text: "Spanish" },
+      { value: "it", text: "Italian" }
     ]
   }),
   methods: {
     createStream() {
-      const formData = new FormData();
-      formData.append("name", "name");
-      formData.append("description", "description");
-      formData.append("price", 0);
-      formData.append("interaction", "view");
-      formData.append("duration", "30");
-      formData.append("category", "sport");
-      formData.append("zip", 9000);
-      formData.append("country", "CH");
-      formData.append("language", "de");
-
-      this.$http.post("api/v1/streams/", formData).then(response => {
-        const stream = response.data;
-
+      this.$refs.form.validate()
+      
+      if (this.valid) {
+        this.loading = true
         const formData = new FormData();
-        formData.append("title", "title");
-        formData.append("description", "description");
-        formData.append("tech", "youtube");
-        formData.append("url", "https://google.ch");
-        formData.append("start", new Date().toISOString());
+        formData.append("name", this.name);
+        formData.append("description", this.description);
+        formData.append("price", this.price);
+        formData.append("interaction", this.interaction);
+        formData.append("duration", this.duration);
+        formData.append("category", this.category);
+        formData.append("zip", 9000);
+        formData.append("country", "CH");
+        formData.append("language", this.language);
 
-        this.$http.post(`api/v1/streams/${stream.id}/add_session/`, formData);
-      });
+        this.$http.post("api/v1/streams/", formData).then(response => {
+          const stream = response.data;
+
+          const formData = new FormData();
+          formData.append("title", "title");
+          formData.append("description", "description");
+          formData.append("tech", this.tech);
+          formData.append("url", this.url);
+          formData.append("start", moment(this.date  + ' ' + this.time).toISOString());
+
+          this.$http.post(`api/v1/streams/${stream.id}/add_session/`, formData).then(() => {
+            this.resetForm()
+            this.loading = false
+            this.$router.push('/profile')
+          })
+        });
+      }
+    },
+    resetForm() {
+      this.dialog = false;
+      this.valid = false;
+      this.name = null;
+      this.description = null;
+      this.price = 0;
+      this.interaction = "view";
+      this.duration = "30";
+      this.category = null;
+      this.language = "en";
+      this.tech = null
+      this.url = null
+      this.date = null
+      this.time = null
     }
   }
 };
