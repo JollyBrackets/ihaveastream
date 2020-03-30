@@ -62,28 +62,52 @@
       <v-col cols="3">
         <template v-if="upcommingSessions.length > 0">
           <p class="subheading">Upcomming streams</p>
-          <v-card>
-            <v-img
-              :src="img"
-              :height="150"
-              gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
-              >
-                <template v-slot:placeholder>
-                  <loader />
-                </template>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-icon :size="40" color="white">mdi-play-circle-outline</v-icon>
-                </v-row>
-            </v-img>
-            <v-card-text>
-              <v-btn small>Add to calender</v-btn>
-            </v-card-text>
-          </v-card>
+          <div v-for="session in upcommingSessions" :key="session.id">
+            <v-card>
+              <v-img
+                :src="session.image || 'https://source.unsplash.com/500x300/?streaming'"
+                :height="150"
+                gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
+                >
+                  <template v-slot:placeholder>
+                    <loader />
+                  </template>
+                  <v-row class="fill-height ma-0" align="center" justify="center">
+                    <v-icon :size="40" color="white">mdi-play-circle-outline</v-icon>
+                  </v-row>
+              </v-img>
+              <v-card-text>
+                <v-btn small>Add to calender</v-btn>
+              </v-card-text>
+            </v-card>
+          </div>
+
+          <p class="subheading mt-5">Past streams</p>
+          <div v-for="session in pastSessions" :key="`past_${session.id}`">
+            <v-card>
+              <v-img
+                :src="session.image || 'https://source.unsplash.com/500x300/?streaming'"
+                :height="150"
+                gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
+                >
+                  <template v-slot:placeholder>
+                    <loader />
+                  </template>
+                  <v-row class="fill-height ma-0" align="center" justify="center">
+                    <v-icon :size="40" color="white">mdi-play-circle-outline</v-icon>
+                  </v-row>
+              </v-img>
+              <v-card-text>
+                <v-btn small :href="session.url">View in archive</v-btn>
+              </v-card-text>
+            </v-card>
+          </div>
         </template>
 
 
       </v-col>
     </v-row>
+
 
     <!-- Loader -->
     <v-row class="fill-height ma-0" align="center" justify="center" v-else>
@@ -118,10 +142,10 @@ export default {
       return this.stream.sessions.filter(session => moment(session.start).isAfter(moment()))[0]
     },
     upcommingSessions () {
-      return this.stream.sessions.filter(session => moment(session.start).isAfter(moment(session.start)))
+      return this.stream.sessions.filter(session => moment(session.start).isAfter(moment(this.liveSession.start)))
     },
     pastSessions () {
-      return this.stream.sessions.filter(session => moment(session.start).isAfter(moment(session.start)))
+      return this.stream.sessions.filter(session => moment(session.start).isAfter(moment(this.liveSession.start)))
     }
   },
   async created() {
