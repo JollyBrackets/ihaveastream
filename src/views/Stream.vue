@@ -2,9 +2,13 @@
   <v-container>
     <v-row v-if="stream">
       <v-col cols="9">
-        <video v-if="liveSession" controls style="max-width: 100%">
-          <source :src="liveSession.url" />
-        </video>
+        <template v-if="liveSession">
+          <iframe 
+            style="border: none; width: 100%; min-height: 600px;" :src="liveSession.url"
+            frameborder="0"
+          >
+          </iframe>
+        </template>
 
         <v-img
           v-else
@@ -158,6 +162,11 @@ export default {
 
         return moment(session.start).isBefore(moment().subtract(duration, 'minutes'))
       })
+    }
+  },
+  methods: {
+    resizeIframe(obj) {
+      console.log(obj.contentWindow.document.documentElement.scrollHeight)
     }
   },
   async created() {
