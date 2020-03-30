@@ -7,6 +7,7 @@ import GAuth from 'vue-google-oauth2'
 import VueResource from 'vue-resource';
 import VueMoment from 'vue-moment'
 import loader from '@/components/Loader.vue'
+import store from './store'
 
 Vue.component('loader', loader)
 
@@ -16,6 +17,8 @@ Vue.use(VueAnalytics, {
   router
 })
 Vue.use(VueMoment);
+
+Vue.prototype.$store = store
 
 const gauthOption = {
   clientId: "598223967097-q4amponcts0mpsocn313onh2k030fhka.apps.googleusercontent.com",
