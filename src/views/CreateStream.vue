@@ -58,7 +58,7 @@ export default {
           formData.append('description', 'description');
           formData.append('tech', 'youtube');
           formData.append('url', 'https://google.ch');
-          formData.append('start', new Date());
+          formData.append('start', (new Date()).toISOString());
 
           this.$http.post(`api/v1/streams/${stream.id}/add_session/`, formData)
         })
