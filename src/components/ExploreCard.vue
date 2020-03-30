@@ -2,7 +2,7 @@
   <v-card v-if="stream" elevation="1" @click="$router.push({ name: 'Stream', params: { id: stream.id } })">
     <v-img
       :src="stream.logo || 'https://source.unsplash.com/500x300/?'+ stream.category"
-      :height="150"
+      :aspect-ratio="16/9"
       gradient="to top right, rgba(100,115,201,.6), rgba(25,32,72,.9)"
       >
         <template v-slot:placeholder>

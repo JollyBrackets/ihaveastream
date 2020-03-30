@@ -9,6 +9,7 @@
         <v-img
           v-else
           contain
+          :aspect-ratio="16/9"
           :src="stream.logo || 'https://source.unsplash.com/500x300/?streaming'"
           gradient="to top right, rgba(0,0,0,.6), rgba(25,32,72,.9)"
           >
