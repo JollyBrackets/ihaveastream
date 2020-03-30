@@ -121,6 +121,15 @@
               <p class="title primary--text mb-0">Tell us about your first session</p>
               <p class="caption">You'll be able to add more sessions later!</p>
 
+              <v-file-input
+                v-model="logo"
+                :rules="[ value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!']"
+                accept="image/png, image/jpeg, image/bmp"
+                placeholder="Pick an avatar"
+                prepend-icon="mdi-camera"
+                label="Avatar"
+              />
+
               <v-select
                 v-model="tech"
                 :items="techOptions"
@@ -152,12 +161,13 @@
                     hint="MM/DD/YYYY format"
                     persistent-hint
                     prepend-icon="mdi-calendar"
+                    
                     v-on="on"
                     required
                     :rules="[v => !!v || 'Date is required']"
                   />
                 </template>
-                <v-date-picker v-model="date" no-title @input="dateMenu = false"></v-date-picker>
+                <v-date-picker :min="new Date().toISOString()" v-model="date" no-title @input="dateMenu = false"></v-date-picker>
               </v-menu>
 
               <v-menu
@@ -234,6 +244,7 @@ export default {
     url: null,
     date: null,
     time: null,
+    logo: null,
     providers: [
       {
         name: "Zoom",
@@ -367,7 +378,6 @@ export default {
   methods: {
     createStream() {
       this.$refs.form.validate()
-      
       if (this.valid) {
         this.loading = true
         const formData = new FormData();
@@ -380,6 +390,7 @@ export default {
         formData.append("zip", 9000);
         formData.append("country", "CH");
         formData.append("language", this.language);
+        formData.append('logo', this.logo, 'logo');
 
         this.$http.post("api/v1/streams/", formData).then(response => {
           const stream = response.data;
@@ -394,7 +405,7 @@ export default {
           this.$http.post(`api/v1/streams/${stream.id}/add_session/`, formData).then(() => {
             this.resetForm()
             this.loading = false
-            this.$router.push('/profile')
+            this.$router.push(`/stream/${stream.id}`)
           })
         });
       }
@@ -412,7 +423,8 @@ export default {
       this.tech = null
       this.url = null
       this.date = null
-      this.time = null
+      this.time = null,
+      this.logo = null
     }
   }
 };
