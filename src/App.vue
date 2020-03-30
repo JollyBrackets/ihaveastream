@@ -70,7 +70,7 @@
             </v-btn>
           </a>
 
-          <v-btn class="mx-4 white--text" @click="$router.push('about')">
+          <v-btn class="mx-4 white--text" @click="$router.push('/about')">
             <v-icon size="24px">mdi-account-supervisor</v-icon>
             <span class="ml-2">About the team</span>
           </v-btn>
